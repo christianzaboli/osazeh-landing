@@ -45,6 +45,10 @@ function App() {
     posthog.capture(label, config);
   }
   useEffect(() => {
+    posthog._init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN ?? "", {
+      api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+      capture_pageview: true,
+    });
     if (reducedMotion || !pageRef.current) return;
 
     const ctx = gsap.context(() => {
