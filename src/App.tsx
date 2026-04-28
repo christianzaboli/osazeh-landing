@@ -1,0 +1,315 @@
+import { ArrowUpRight, Code2, Contact, Mail, FileUser } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { LogoSignal } from "./components/LogoSignal";
+import { trackEvent } from "./lib/analytics";
+import {
+  links,
+  principles,
+  profile,
+  projects,
+  stack,
+} from "./data/siteContent";
+import "./App.css";
+
+gsap.registerPlugin(ScrollTrigger);
+
+function useReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return reducedMotion;
+}
+
+const iconMap = {
+  GitHub: Code2,
+  LinkedIn: Contact,
+  Email: Mail,
+};
+
+function trackOutboundClick(eventName: string, data: Record<string, string>) {
+  trackEvent(eventName, data);
+}
+
+function App() {
+  const pageRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const year = useMemo(() => new Date().getFullYear(), []);
+
+  useEffect(() => {
+    if (reducedMotion || !pageRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(".hero-copy > *", {
+        y: 22,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.35,
+      });
+
+      gsap.from(".signal-panel", {
+        y: 18,
+        opacity: 0,
+        duration: 1,
+        delay: 0.18,
+        ease: "power3.out",
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((item) => {
+        gsap.from(item, {
+          y: 26,
+          opacity: 0,
+          duration: 0.72,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 82%",
+            once: true,
+          },
+        });
+      });
+    }, pageRef);
+
+    return () => ctx.revert();
+  }, [reducedMotion]);
+
+  return (
+    <main ref={pageRef} className="site-shell">
+      <nav className="topbar" aria-label="Primary navigation">
+        <a
+          className="brand-lockup"
+          href="#home"
+          aria-label="osazeh home"
+          onClick={() => window.scrollTo({ top: 0 })}
+        >
+          <img src="/brand/logoV1.svg" alt="osazeh logo" />
+          <span>{profile.name}</span>
+        </a>
+        <div className="nav-links">
+          <a href="#links">Link</a>
+          <a href="#about">Chi sono</a>
+          <a href="#projects">Progetti</a>
+        </div>
+        <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
+          Lavoriamo insieme <ArrowUpRight size={14} />
+        </a>
+      </nav>
+
+      <section id="top" className="hero section-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">
+            <span></span>
+            {profile.role}
+          </p>
+          <h1>Costruisco sistemi veloci e scalabili.</h1>
+          {/* <h1>I build fast, scalable systems.</h1> */}
+          <p className="hero-intro">{profile.intro}</p>
+          <div className="hero-actions" aria-label="Primary links">
+            <a className="button button-primary" href="#projects">
+              Vedi i progetti <ArrowUpRight size={16} />
+            </a>
+            <a className="button button-ghost" href="#about">
+              Chi sono <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+
+        <aside className="signal-panel" aria-label="Animated brand signal">
+          <div className="panel-header">
+            <span>Focus attuale</span>
+            <strong>Frontend</strong>
+          </div>
+          <div className="signal-stage">
+            <LogoSignal reducedMotion={reducedMotion} />
+          </div>
+          <div className="signal-meta">
+            <span>Sistemi UI</span>
+            <span>Product polish</span>
+            <span>Motion details</span>
+          </div>
+        </aside>
+      </section>
+
+      <section id="links" className="links-band" data-reveal>
+        <div className="section-label">
+          <span></span> Link utili
+        </div>
+        <div className="links-grid">
+          {links.map((link) => {
+            const Icon =
+              iconMap[link.label as keyof typeof iconMap] ?? FileUser;
+            return (
+              <a
+                className="link-card"
+                href={link.href}
+                key={link.label}
+                target={
+                  link.href.startsWith("http") || link.href.startsWith("public")
+                    ? "_blank"
+                    : undefined
+                }
+                rel="noreferrer"
+                onClick={() =>
+                  trackOutboundClick("Links Section Click", {
+                    label: link.label,
+                    href: link.href,
+                    section: "links",
+                  })
+                }
+              >
+                <Icon size={20} />
+                <span>{link.label}</span>
+                <small>{link.note}</small>
+                <ArrowUpRight className="card-arrow" size={17} />
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="about" className="about-layout section-grid" data-reveal>
+        <div>
+          <div className="section-label">
+            <span></span> Chi sono
+          </div>
+          <h2>Frontend guidato dal design e costruito con cura.</h2>
+        </div>
+        <div className="about-copy">
+          <p>{profile.about}</p>
+          <p>{profile.availability}</p>
+          <div className="principles">
+            {principles.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" className="projects-section" data-reveal>
+        <div className="section-heading">
+          <div>
+            <div className="section-label">
+              <span></span> Lavori selezionati
+            </div>
+            <h2>Alcuni progetti ed esperimenti recenti.</h2>
+          </div>
+          <a
+            href="https://github.com/christianzaboli"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Vai a GitHub <ArrowUpRight size={16} />
+          </a>
+        </div>
+
+        <div className="project-grid">
+          {projects.map((project, index) => (
+            <article className="project-card" key={project.title}>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() =>
+                  trackOutboundClick("Project Click", {
+                    title: project.title,
+                    href: project.link,
+                    section: "projects",
+                  })
+                }
+              >
+                <div className="project-preview" aria-hidden="true">
+                  <span>0{index + 1}</span>
+                  <div className="preview-line"></div>
+                  <img
+                    src={project.image}
+                    alt={project.title.split(" ").join("_") + "_image"}
+                  />
+                </div>
+              </a>
+              <div className="project-body">
+                <div className="project-kicker">
+                  <span>{project.type}</span>
+                  <span>{project.status}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+                <div className="tags">
+                  {project.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="stack-section" data-reveal>
+        <div className="stack-panel">
+          <div className="section-label">
+            <span></span> Stack / interessi
+          </div>
+          <div className="stack-grid">
+            {stack.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </div>
+        <div className="callout-panel">
+          <img src="/brand/logoV1.svg" alt="" />
+          <p>
+            Stai cercando qualcuno che costruisca l&apos;interfaccia, curi i
+            dettagli e mantenga il sistema solido nel tempo?
+          </p>
+          <div>
+            <a
+              href="https://discord.com/users/osazeh"
+              target="_blank"
+              style={{ margin: "0 20px 20px 0" }}
+              onClick={() =>
+                trackOutboundClick("Personal Discord", {
+                  title: "discord link",
+                  href: "https://discord.com/users/osazeh",
+                })
+              }
+            >
+              Parliamo su Discord!
+              <ArrowUpRight size={16} />
+            </a>
+            <a href="mailto:zabolichristian@gmail.com">
+              oppure per email...
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <span>Costruito con intenzione</span>
+        <span className="slash-divider">/</span>
+        <span>Rifinito con cura</span>
+        <span className="slash-divider">/</span>
+
+        <span>
+          {profile.location.map((location) => (
+            <span key={location}> {location}</span>
+          ))}
+          .
+        </span>
+
+        <strong>/{year}</strong>
+      </footer>
+    </main>
+  );
+}
+
+export default App;
