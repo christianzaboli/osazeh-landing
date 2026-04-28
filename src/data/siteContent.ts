@@ -31,7 +31,7 @@ export const links: LinkItem[] = [
   { label: 'GitHub', href: 'https://github.com/christianzaboli', note: 'Codice, esperimenti, repository' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/christianzabolivedovi/', note: 'Aggiornamenti e contatti' },
   { label: 'Email', href: 'mailto:zabolichristian@gmail.com', note: 'Richieste di progetto e messaggi' },
-  { label: 'CV', href: 'public/christian_zaboli_vedovi_cv_frontend.pdf', note: 'Clicca qui per visualizzare' },
+  { label: 'CV', href: '/christian_zaboli_vedovi_cv_frontend.pdf', note: 'Clicca qui per visualizzare' },
 ]
 
 export const projects: Project[] = [
