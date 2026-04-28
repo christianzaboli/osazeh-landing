@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LogoSignal } from "./components/LogoSignal";
-import { trackEvent } from "./lib/analytics";
 import {
   links,
   principles,
@@ -12,6 +11,7 @@ import {
   stack,
 } from "./data/siteContent";
 import "./App.css";
+import { usePostHog } from "@posthog/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,15 +35,15 @@ const iconMap = {
   Email: Mail,
 };
 
-function trackOutboundClick(eventName: string, data: Record<string, string>) {
-  trackEvent(eventName, data);
-}
-
 function App() {
+  const posthog = usePostHog();
   const pageRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const year = useMemo(() => new Date().getFullYear(), []);
 
+  function postHogCap(label: string, config: object) {
+    posthog.capture(label, config);
+  }
   useEffect(() => {
     if (reducedMotion || !pageRef.current) return;
 
@@ -159,7 +159,7 @@ function App() {
                 }
                 rel="noreferrer"
                 onClick={() =>
-                  trackOutboundClick("Links Section Click", {
+                  postHogCap("Links Section Click", {
                     label: link.label,
                     href: link.href,
                     section: "links",
@@ -219,7 +219,7 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() =>
-                  trackOutboundClick("Project Click", {
+                  postHogCap("Project Click", {
                     title: project.title,
                     href: project.link,
                     section: "projects",
@@ -276,7 +276,7 @@ function App() {
               target="_blank"
               style={{ margin: "0 20px 20px 0" }}
               onClick={() =>
-                trackOutboundClick("Personal Discord", {
+                postHogCap("Personal Discord", {
                   title: "discord link",
                   href: "https://discord.com/users/osazeh",
                 })
