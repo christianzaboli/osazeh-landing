@@ -153,7 +153,7 @@ function App() {
                 href={link.href}
                 key={link.label}
                 target={
-                  link.href.startsWith("http") || link.href.startsWith("public")
+                  link.href.startsWith("http") || link.href.startsWith("/")
                     ? "_blank"
                     : undefined
                 }
