@@ -1,4 +1,3 @@
-import { ArrowUpRight, Code2, Contact, Mail, FileUser } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +12,10 @@ import {
 } from "./data/siteContent";
 import "./App.css";
 import { usePostHog } from "@posthog/react";
+import useTheme from "./CustomHooks/useTheme";
+
+// svg
+import { ArrowUpRight, Code2, Contact, Mail, FileUser } from "lucide-react";
 import Logo from "./assets/logoV1.svg?react";
 import InstagramLogo from "./assets/socials/instagram.svg?react";
 import FacebookLogo from "./assets/socials/facebook.svg?react";
@@ -42,13 +45,16 @@ const iconMap = {
 };
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   const posthog = usePostHog();
-  const pageRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+
   const year = useMemo(() => new Date().getFullYear(), []);
+  const pageRef = useRef<HTMLDivElement>(null);
   const linksSection = useRef<HTMLElement | null>(null);
   const aboutSection = useRef<HTMLElement | null>(null);
   const projectsSection = useRef<HTMLElement | null>(null);
+
   function scrollToSection(section: sectionName) {
     switch (section) {
       case "links":
@@ -68,6 +74,7 @@ function App() {
   function postHogCap(label: string, config: object) {
     posthog.capture(label, config);
   }
+
   useEffect(() => {
     posthog._init(import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN ?? "", {
       api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
@@ -127,9 +134,20 @@ function App() {
           <a onClick={() => scrollToSection("about")}>Chi sono</a>
           <a onClick={() => scrollToSection("projects")}>Progetti</a>
         </div>
-        <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
-          Lavoriamo insieme <ArrowUpRight size={14} />
-        </a>
+        <div className="nav-actions">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            aria-pressed={theme === "dark"}
+          >
+            {theme === "light" ? "Dark mode" : "Light mode"}
+          </button>
+          <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
+            Lavoriamo insieme <ArrowUpRight size={14} />
+          </a>
+        </div>
       </nav>
 
       <section className="hero section-grid">
@@ -142,10 +160,16 @@ function App() {
           {/* <h1>I build fast, scalable systems.</h1> */}
           <p className="hero-intro">{profile.intro}</p>
           <div className="hero-actions" aria-label="Primary links">
-            <a className="button button-primary" href="#projects">
+            <a
+              className="button button-primary"
+              onClick={() => scrollToSection("projects")}
+            >
               Vedi i progetti <ArrowUpRight size={16} />
             </a>
-            <a className="button button-ghost" href="#about">
+            <a
+              className="button button-ghost"
+              onClick={() => scrollToSection("about")}
+            >
               Chi sono <ArrowUpRight size={16} />
             </a>
           </div>
