@@ -15,7 +15,15 @@ import { usePostHog } from "@posthog/react";
 import useTheme from "./CustomHooks/useTheme";
 
 // svg
-import { ArrowUpRight, Code2, Contact, Mail, FileUser } from "lucide-react";
+import {
+  ArrowUpRight,
+  Code2,
+  Contact,
+  Mail,
+  FileUser,
+  Sun,
+  Moon,
+} from "lucide-react";
 import Logo from "./assets/logoV1.svg?react";
 import InstagramLogo from "./assets/socials/instagram.svg?react";
 import FacebookLogo from "./assets/socials/facebook.svg?react";
@@ -125,9 +133,8 @@ function App() {
           aria-label="osazeh home"
           onClick={() => window.scrollTo({ top: 0 })}
         >
-          {/* <img src="/brand/logoV1.svg" alt="osazeh logo" /> */}
           <Logo />
-          <span>{profile.name}</span>
+          <span>{window.innerWidth > 540 ? profile.name : "Osazeh"}</span>
         </a>
         <div className="nav-links">
           <a onClick={() => scrollToSection("links")}>Link</a>
@@ -135,6 +142,9 @@ function App() {
           <a onClick={() => scrollToSection("projects")}>Progetti</a>
         </div>
         <div className="nav-actions">
+          <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
+            Lavoriamo insieme <ArrowUpRight size={14} />
+          </a>
           <button
             type="button"
             className="theme-toggle"
@@ -142,11 +152,12 @@ function App() {
             aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
             aria-pressed={theme === "dark"}
           >
-            {theme === "light" ? "Dark mode" : "Light mode"}
+            {theme === "light" ? (
+              <Moon strokeWidth={1.2} color="#8a52ff" />
+            ) : (
+              <Sun strokeWidth={1.5} color="#f5d200" />
+            )}
           </button>
-          <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
-            Lavoriamo insieme <ArrowUpRight size={14} />
-          </a>
         </div>
       </nav>
 
@@ -321,7 +332,7 @@ function App() {
           </div>
         </div>
         <div className="callout-panel">
-          <img src="/brand/logoV1.svg" alt="" />
+          <Logo />
           <p>
             Stai cercando qualcuno che costruisca l&apos;interfaccia, curi i
             dettagli e mantenga il sistema solido nel tempo?

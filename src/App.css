@@ -123,7 +123,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--ink);
   background:
     radial-gradient(circle at 90% 12%, var(--hero-glow), transparent 28rem),
@@ -251,8 +251,7 @@ img {
 
 .theme-toggle {
   min-height: 36px;
-  padding: 0 14px;
-  border: 1px solid var(--line);
+  border: transparent;
   border-radius: 999px;
   background: transparent;
   color: var(--ink);
@@ -274,7 +273,6 @@ img {
 
 .theme-toggle[aria-pressed="true"] {
   border-color: var(--signal);
-  background: color-mix(in srgb, var(--signal) 12%, transparent);
 }
 
 .section-grid {
@@ -844,9 +842,9 @@ h3 {
   color: var(--base);
 }
 
-.callout-panel img {
+.callout-panel svg {
   width: 46px;
-  filter: invert(1);
+  fill: var(--footer-social-fill);
 }
 
 .callout-panel p {

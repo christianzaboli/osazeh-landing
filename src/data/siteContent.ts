@@ -41,7 +41,7 @@ export const projects: Project[] = [
     image: 'brand/previews/space_domicile.png',
     summary:
       'Progetto nato in team e poi portato avanti in autonomia, con refactor di circa l’80% del codice e nuove strategie e funzionalita.',
-    stack: ['React', 'MySQL', 'Node.js', 'Vercel', 'Render', 'Pagamenti'],
+    stack: ['React', 'MySQL', 'Node.js', 'Vercel', 'Render', 'Pagamenti', 'Photoshop'],
     status: 'In corso',
     link: 'https://space-domicile.vercel.app'
   },
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     image: 'brand/previews/earth_R3F.gif',
     summary:
       'Un test che ricrea la terra attraverso forme semplici e un lavoro di rifinitura sulle texture.',
-    stack: ['Vite', 'Three.js', 'React', 'R3F'],
+    stack: ['Vite', 'Three.js', 'React', 'R3F', 'Photoshop'],
     status: 'Prototipo',
     link: 'https://github.com/christianzaboli/R3F_hello_world'
   },
