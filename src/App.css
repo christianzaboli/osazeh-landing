@@ -847,7 +847,7 @@ h3 {
 
 .callout-panel svg {
   width: 46px;
-  fill: var(--footer-social-fill);
+  /* fill: var(--footer-social-fill); */
 }
 
 .callout-panel p {
