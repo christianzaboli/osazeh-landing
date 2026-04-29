@@ -297,6 +297,7 @@ function App() {
                   <span>0{index + 1}</span>
                   <div className="preview-line"></div>
                   <img
+                    draggable="false"
                     src={project.image}
                     alt={project.title.split(" ").join("_") + "_image"}
                   />

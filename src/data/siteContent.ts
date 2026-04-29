@@ -61,6 +61,7 @@ export const stack = [
   'React.js',
   'TypeScript',
   'Node.js',
+  'Express.js',
   'MySQL',
   'Git',
   'TailwindCSS',
@@ -69,7 +70,10 @@ export const stack = [
   'R3F',
   'Design systems',
   'Motion UI',
-  'Gaming'
+  'REST API',
+  'Postman',
+  'Gaming',
+  'And ready to learn more!'
 ]
 
 export const principles = ['Sistemi puliti', 'Interfacce curate', 'Motion utile', 'Attenzione ai dettagli']
