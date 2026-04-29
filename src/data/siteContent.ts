@@ -73,3 +73,4 @@ export const stack = [
 ]
 
 export const principles = ['Sistemi puliti', 'Interfacce curate', 'Motion utile', 'Attenzione ai dettagli']
+export type sectionName = "links" | "about" | "projects";

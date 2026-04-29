@@ -193,7 +193,10 @@ img {
 .section-heading a:hover {
   color: var(--violet);
 }
-
+.brand-lockup,
+.nav-links a {
+  cursor: pointer;
+}
 .nav-cta {
   justify-self: end;
   font-family: var(--mono);
@@ -455,8 +458,8 @@ h3 {
   max-width: 695px;
   padding: 50px;
   overflow: visible;
-  fill: #121316;
-  filter: drop-shadow(0 14px 42px rgba(138, 82, 255, 0.16));
+  fill: var(--ink);
+  filter: drop-shadow(0 14px 42px rgba(138, 82, 255, 0.3));
 }
 
 .canvas-label {

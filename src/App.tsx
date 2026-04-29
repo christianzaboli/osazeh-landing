@@ -9,6 +9,7 @@ import {
   profile,
   projects,
   stack,
+  type sectionName,
 } from "./data/siteContent";
 import "./App.css";
 import { usePostHog } from "@posthog/react";
@@ -40,7 +41,25 @@ function App() {
   const pageRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const year = useMemo(() => new Date().getFullYear(), []);
+  const linksSection = useRef<HTMLElement | null>(null);
+  const aboutSection = useRef<HTMLElement | null>(null);
+  const projectsSection = useRef<HTMLElement | null>(null);
+  function scrollToSection(section: sectionName) {
+    switch (section) {
+      case "links":
+        linksSection.current?.scrollIntoView();
+        break;
+      case "about":
+        aboutSection.current?.scrollIntoView();
+        break;
+      case "projects":
+        projectsSection.current?.scrollIntoView();
+        break;
 
+      default:
+        break;
+    }
+  }
   function postHogCap(label: string, config: object) {
     posthog.capture(label, config);
   }
@@ -91,7 +110,6 @@ function App() {
       <nav className="topbar" aria-label="Primary navigation">
         <a
           className="brand-lockup"
-          href="#home"
           aria-label="osazeh home"
           onClick={() => window.scrollTo({ top: 0 })}
         >
@@ -99,16 +117,16 @@ function App() {
           <span>{profile.name}</span>
         </a>
         <div className="nav-links">
-          <a href="#links">Link</a>
-          <a href="#about">Chi sono</a>
-          <a href="#projects">Progetti</a>
+          <a onClick={() => scrollToSection("links")}>Link</a>
+          <a onClick={() => scrollToSection("about")}>Chi sono</a>
+          <a onClick={() => scrollToSection("projects")}>Progetti</a>
         </div>
         <a className="nav-cta" href="mailto:zabolichristian@gmail.com">
           Lavoriamo insieme <ArrowUpRight size={14} />
         </a>
       </nav>
 
-      <section id="top" className="hero section-grid">
+      <section className="hero section-grid">
         <div className="hero-copy">
           <p className="eyebrow">
             <span></span>
@@ -143,7 +161,7 @@ function App() {
         </aside>
       </section>
 
-      <section id="links" className="links-band" data-reveal>
+      <section ref={linksSection} className="links-band" data-reveal>
         <div className="section-label">
           <span></span> Link utili
         </div>
@@ -180,7 +198,11 @@ function App() {
         </div>
       </section>
 
-      <section id="about" className="about-layout section-grid" data-reveal>
+      <section
+        ref={aboutSection}
+        className="about-layout section-grid"
+        data-reveal
+      >
         <div>
           <div className="section-label">
             <span></span> Chi sono
@@ -198,7 +220,7 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="projects-section" data-reveal>
+      <section ref={projectsSection} className="projects-section" data-reveal>
         <div className="section-heading">
           <div>
             <div className="section-label">
