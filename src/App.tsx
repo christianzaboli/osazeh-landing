@@ -25,6 +25,7 @@ import {
   Moon,
 } from "lucide-react";
 import Logo from "./assets/logoV1.svg?react";
+import LogoBorder from "./assets/logoV1_border.svg?react";
 import InstagramLogo from "./assets/socials/instagram.svg?react";
 import FacebookLogo from "./assets/socials/facebook.svg?react";
 import XLogo from "./assets/socials/x-twitter.svg?react";
@@ -162,6 +163,7 @@ function App() {
       </nav>
 
       <section className="hero section-grid">
+        <LogoBorder id="logo-mobile-hero" />
         <div className="hero-copy">
           <p className="eyebrow">
             <span></span>

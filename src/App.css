@@ -276,11 +276,14 @@ img {
 }
 
 .section-grid {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
   gap: 48px;
 }
-
+#logo-mobile-hero {
+  display: none;
+}
 .hero {
   align-items: stretch;
   padding: 15px 40px 40px;
@@ -987,6 +990,13 @@ h3 {
   }
   .signal-panel {
     display: none;
+  }
+  #logo-mobile-hero {
+    display: block;
+    position: absolute;
+    top: 187px;
+    stroke: var(--ink);
+    mask-image: radial-gradient(circle, black 15%, rgba(0, 0, 0, 0.1) 50%);
   }
 }
 @media (max-width: 620px) {
