@@ -160,12 +160,13 @@ img {
   font-family: var(--display);
   font-size: 20px;
   font-weight: 700;
-  &:hover img {
+  &:hover svg {
     transform: rotate(180deg);
+    color: var(--violet);
   }
 }
 
-.brand-lockup img {
+.brand-lockup svg {
   width: 30px;
   height: 30px;
   transition: all ease 0.5s;
@@ -805,7 +806,8 @@ h3 {
 .footer {
   display: flex;
   align-items: center;
-  gap: 22px;
+  justify-content: space-between;
+  gap: 24px;
   min-height: 80px;
   padding: 0 40px;
   background: var(--ink);
@@ -813,8 +815,38 @@ h3 {
   font-size: 12px;
 }
 
-.footer strong {
+.footer-copy,
+.footer-meta,
+.footer-socials {
+  display: flex;
+  align-items: center;
+}
+
+.footer-copy {
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.footer-meta {
+  flex: 0 0 auto;
+  gap: 16px;
   margin-left: auto;
+}
+
+.footer-socials {
+  gap: 12px;
+}
+
+.footer-socials a svg {
+  width: 16px;
+  height: 16px;
+  fill: white;
+  cursor: pointer;
+}
+.footer-socials a {
+  height: 16px;
+}
+.footer strong {
   color: var(--signal);
 }
 
@@ -907,6 +939,21 @@ h3 {
   .footer {
     flex-direction: column;
   }
+
+  .footer-copy,
+  .footer-meta {
+    width: 100%;
+  }
+
+  .footer-copy {
+    gap: 14px;
+  }
+
+  .footer-meta {
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
   .button {
     justify-content: center;
     width: 100%;

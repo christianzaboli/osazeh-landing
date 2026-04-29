@@ -13,6 +13,11 @@ import {
 } from "./data/siteContent";
 import "./App.css";
 import { usePostHog } from "@posthog/react";
+import Logo from "./assets/logoV1.svg?react";
+import InstagramLogo from "./assets/socials/instagram.svg?react";
+import FacebookLogo from "./assets/socials/facebook.svg?react";
+import XLogo from "./assets/socials/x-twitter.svg?react";
+import WpLogo from "./assets/socials/whatsapp.svg?react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,7 +118,8 @@ function App() {
           aria-label="osazeh home"
           onClick={() => window.scrollTo({ top: 0 })}
         >
-          <img src="/brand/logoV1.svg" alt="osazeh logo" />
+          {/* <img src="/brand/logoV1.svg" alt="osazeh logo" /> */}
+          <Logo />
           <span>{profile.name}</span>
         </a>
         <div className="nav-links">
@@ -320,19 +326,39 @@ function App() {
       </section>
 
       <footer className="footer">
-        <span>Costruito con intenzione</span>
-        <span className="slash-divider">/</span>
-        <span>Rifinito con cura</span>
-        <span className="slash-divider">/</span>
-
-        <span>
-          {profile.location.map((location) => (
-            <span key={location}> {location}</span>
-          ))}
-          .
-        </span>
-
-        <strong>/{year}</strong>
+        <div className="footer-copy">
+          <span>Costruito con intenzione</span>
+          <span className="slash-divider">/</span>
+          <span>Rifinito con cura</span>
+          <span className="slash-divider">/</span>
+          <span>
+            {profile.location.map((location) => (
+              <span key={location}> {location}</span>
+            ))}
+            .
+          </span>
+        </div>
+        <div className="footer-meta">
+          <div className="footer-socials" aria-label="Social links">
+            <a href="https://www.instagram.com/osazeh/" target="_blank">
+              <InstagramLogo />
+            </a>
+            <a href="https://www.facebook.com/Osxze" target="_blank">
+              <FacebookLogo />
+            </a>
+            <a
+              href="https://wa.me/393200378831?text=Ciao!%20Ho%20visto%20il%20tuo%20sito%20%F0%9F%91%8B%0ATi%20contatto%20per%3A%20[sito%20web%20%2F%20collaborazione%20%2F%20info]"
+              target="_blank"
+              aria-label="Chat on WhatsApp"
+            >
+              <WpLogo />
+            </a>
+            <a href="https://x.com/osazxh" target="_blank">
+              <XLogo />
+            </a>
+          </div>
+          <strong>/{year}</strong>
+        </div>
       </footer>
     </main>
   );
