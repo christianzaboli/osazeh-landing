@@ -30,6 +30,7 @@ import InstagramLogo from "./assets/socials/instagram.svg?react";
 import FacebookLogo from "./assets/socials/facebook.svg?react";
 import XLogo from "./assets/socials/x-twitter.svg?react";
 import WpLogo from "./assets/socials/whatsapp.svg?react";
+import DiscordLogo from "./assets/socials/discord.svg?react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -342,13 +343,13 @@ function App() {
           </p>
           <div>
             <a
-              href="https://discord.com/users/osazeh"
+              href="https://discord.com/users/228280028541091841"
               target="_blank"
               style={{ margin: "0 20px 20px 0" }}
               onClick={() =>
                 postHogCap("Personal Discord", {
                   title: "discord link",
-                  href: "https://discord.com/users/osazeh",
+                  href: "https://discord.com/users/228280028541091841",
                 })
               }
             >
@@ -378,21 +379,40 @@ function App() {
         </div>
         <div className="footer-meta">
           <div className="footer-socials" aria-label="Social links">
-            <a href="https://www.instagram.com/osazeh/" target="_blank">
+            <a
+              href="https://www.instagram.com/osazeh/"
+              target="_blank"
+              aria-label="Instagram Footer"
+            >
               <InstagramLogo />
             </a>
-            <a href="https://www.facebook.com/Osxze" target="_blank">
+            <a
+              href="https://www.facebook.com/Osxze"
+              target="_blank"
+              aria-label="Facebook Footer"
+            >
               <FacebookLogo />
             </a>
             <a
               href="https://wa.me/393200378831?text=Ciao!%20Ho%20visto%20il%20tuo%20sito%20%F0%9F%91%8B%0ATi%20contatto%20per%3A%20[sito%20web%20%2F%20collaborazione%20%2F%20info]"
               target="_blank"
-              aria-label="Chat on WhatsApp"
+              aria-label="Chat on WhatsApp Footer"
             >
               <WpLogo />
             </a>
-            <a href="https://x.com/osazxh" target="_blank">
+            <a
+              href="https://x.com/osazxh"
+              target="_blank"
+              aria-label="X-twitter Footer"
+            >
               <XLogo />
+            </a>
+            <a
+              href="https://discord.com/users/228280028541091841"
+              target="_blank"
+              aria-label="Discord Footer"
+            >
+              <DiscordLogo />
             </a>
           </div>
           <strong>/{year}</strong>

@@ -847,7 +847,6 @@ h3 {
 
 .callout-panel svg {
   width: 46px;
-  /* fill: var(--footer-social-fill); */
 }
 
 .callout-panel p {
@@ -910,13 +909,21 @@ h3 {
 }
 
 .footer-socials a svg {
-  width: 16px;
+  width: auto;
   height: 16px;
+  min-width: 15px;
+  min-height: 15px;
+  display: block;
+  flex-shrink: 0;
   fill: var(--footer-social-fill);
   cursor: pointer;
   transition: color 0.2s ease;
 }
+
 .footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 16px;
   &:hover svg {
     color: var(--signal);
