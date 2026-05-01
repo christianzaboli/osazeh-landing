@@ -121,6 +121,9 @@ html {
 }
 
 body {
+  cursor:
+    url(./assets/cursor.svg) 4 2,
+    default;
   margin: 0;
   min-width: 320px;
   min-height: 100dvh;
